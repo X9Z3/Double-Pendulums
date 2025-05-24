@@ -9,6 +9,11 @@ Interactive 3D simulation of a double pendulum built using [GlowScript](https://
 
 👉 [Click here to launch the simulation in your browser](https://www.glowscript.org/#/user/X9Z3/folder/X9Z3Publications/program/Double-Pendulum-Primary)  
 
+
+![Screenshot 2025-05-24 020948](https://github.com/user-attachments/assets/f37e10e8-900c-4f12-9a1f-56b554138f8b)
+
+
+
 ---
 
 ## 🎮 Instructions
