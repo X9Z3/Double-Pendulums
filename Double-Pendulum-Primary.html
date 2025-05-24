@@ -1,0 +1,895 @@
+<div id="glowscript" class="glowscript">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="https://www.glowscript.org/css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
+<link type="text/css" href="https://www.glowscript.org/css/ide.css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/package/glow.3.2.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/package/RSrun.3.2.min.js"></script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+
+// START JAVASCRIPT
+;(function() {;
+var ρσ_modules = {};
+var energy_graph, potential_gcurve, kinetic_gcurve, total_energy_gcurve, phase_plane_graph, phasor_gcurve, fast_plots, gravity, mouse_1_up, paused, time_step, accuracy_menu, update_rate, graphing_period, null_node, damping_coefficient, about_me, caption_enabled, about_me_button, graphs_enabled, graphing_button, time, engine_running;
+ρσ_modules.pythonize = {};
+
+(function(){
+    function strings() {
+        var string_funcs, exclude, name;
+        string_funcs = set("capitalize strip lstrip rstrip islower isupper isspace lower upper swapcase center count endswith startswith find rfind index rindex format join ljust rjust partition rpartition replace split rsplit splitlines zfill".split(" "));
+        if (!arguments.length) {
+            exclude = (function(){
+                var s = ρσ_set();
+                s.jsset.add("split");
+                s.jsset.add("replace");
+                return s;
+            })();
+        } else if (arguments[0]) {
+            exclude = Array.prototype.slice.call(arguments);
+        } else {
+            exclude = null;
+        }
+        if (exclude) {
+            string_funcs = string_funcs.difference(set(exclude));
+        }
+        var ρσ_Iter0 = string_funcs;
+        ρσ_Iter0 = ((typeof ρσ_Iter0[Symbol.iterator] === "function") ? (ρσ_Iter0 instanceof Map ? ρσ_Iter0.keys() : ρσ_Iter0) : Object.keys(ρσ_Iter0));
+        for (var ρσ_Index0 of ρσ_Iter0) {
+            name = ρσ_Index0;
+            (ρσ_expr_temp = String.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name] = (ρσ_expr_temp = ρσ_str.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name];
+        }
+    };
+    if (!strings.__module__) Object.defineProperties(strings, {
+        __module__ : {value: "pythonize"}
+    });
+
+    ρσ_modules.pythonize.strings = strings;
+})();
+async function __main__() {
+"use strict";
+    var display = canvas;
+    var scene = canvas();
+
+    function round(num, n=0) {return Number(num.toFixed(n))}
+
+    function input(arg) {
+    	arg = arg || {}
+    	if (arg.prompt !== undefined && arg.prompt != '') return prompt(arg.prompt)
+    	else if (typeof arg === 'string') return prompt(arg)
+    	else return prompt()
+    }
+
+    var version, print, arange, __name__, type, ρσ_ls, scene, about_me, default_radius, damping_coefficient, gravity, time_step, time, update_rate, mouse_1_up, paused, engine_running, caption_enabled, graphs_enabled, fast_plots, advanced_editing, _GS_1, null_node, speed_slider, dampener_slider, accuracy_menu, run_pause_button, about_me_button, graphing_button, fast_plots_button, gravity_slider;
+    version = ρσ_list_decorate([ "3.2", "glowscript" ]);
+    Array.prototype['+'] = function(r) {return this.concat(r)}
+    Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
+    window.__GSlang = "vpython";
+    print = GSprint;
+    arange = range;
+    __name__ = "__main__";
+    type = pytype;
+    var strings = ρσ_modules.pythonize.strings;
+
+    strings();
+    "15";
+    scene = ρσ_interpolate_kwargs.call(this, display, [ρσ_desugar_kwargs({width: 600, height: 600, align: "left"})]);
+    "16";
+    scene.bind("mousedown", move_node);
+    "17";
+    scene.bind("mouseup", release_mouse_1);
+    "21";
+    ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: vec(0, 0, 0), axis: vec(2, 0, 0), color: color.white, shaftwidth: .005, headwidth: .05})]);
+    "23";
+    ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: vec(0, 0, 0), axis: vec(1["-u"]()["*"](2), 0, 0), color: color.white, shaftwidth: .005, headwidth: .05})]);
+    "25";
+    ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vec(2, 0, 0), text: "x", color: color.red, xoffset: 2, yoffset: 2, box: false})]);
+    "29";
+    ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: vec(0, 0, 0), axis: vec(0, 2, 0), color: color.white, shaftwidth: .005, headwidth: .05})]);
+    "31";
+    ρσ_interpolate_kwargs.call(this, arrow, [ρσ_desugar_kwargs({pos: vec(0, 0, 0), axis: vec(0, 1["-u"]()["*"](2), 0), color: color.white, shaftwidth: .005, headwidth: .05})]);
+    "33";
+    ρσ_interpolate_kwargs.call(this, label, [ρσ_desugar_kwargs({pos: vec(0, 2, 0), text: "y", color: color.green, xoffset: 2, yoffset: 2, box: false})]);
+    "77";
+    about_me = "\n            Click <b>Running<\/b> to Pause/Play. Adjust simulation accuracy via the \n    <b>Simulation step</b> dropdown. Left-click and drag a mass to reposition it \n    (best while paused). Rotate the view with right-click + drag, zoom with \n    scroll wheel.\n\n    <b>Show graphs</b> impacts performance but offers useful features. For \n    detailed analysis, switch <b>Fast plots</b> to <b>High detail</b> \n    (more resource-intensive). If the pendulum spins too fast, increase \n    <b>Damping</b> or reload the page. For best performance, use Chrome.\n\n    ┌── Physics Discussion ──┐\n\n    The Equations of Motion are derived using the Euler-Lagrange Differential\n    Equation. Once we obtain expressions for \\(\\ddot{\\theta}_1\\) and  \n    \\(\\ddot{\\theta}_2\\), we apply a forward-Euler integration scheme to \n    compute positions and angular velocities in real time. This method trades \n    accuracy for performance, which suits our purpose here.\n\n    Angles follow the unit circle convention, where \\(\\theta=0\\) points along \n    the positive x-axis (not vertical). If replicating this system, be careful—this \n    orientation alters the expressions for x and y positions, resulting in \n    distinct equations of motion. Subscripts: 1 = blue mass, 2 = red mass.\n\n    <b>Energy Equations:</b>\n    \\[T = \\frac{1}{2}m_1(\\ell_1^2 \\dot{\\theta}_1^2) + \\frac{1}{2}m_2\\left( \n    \\ell_1^2 \\dot{\\theta}_1^2 + \\ell_2^2 \\dot{\\theta}_2^2 + \n    2\\ell_1\\ell_2\\dot{\\theta}_1\\dot{\\theta}_2\\cos\\Delta\\theta \\right)\\]\n    \\[V = -m_1g\\ell_1\\cos\\theta_1 - m_2g\\left( \n    \\ell_1\\cos\\theta_1 + \\ell_2\\cos\\theta_2 \\right)\\]\n\n    <b>Angular Accelerations:</b>\n    \\[\\ddot{\\theta}_1 = \\frac{m_2g\\sin\\theta_2\\cos\\Delta\\theta - \n    m_2\\ell_2\\dot{\\theta}_2^2\\sin\\Delta\\theta - \n    (m_1+m_2)g\\sin\\theta_1}{\\ell_1(m_1 + m_2\\sin^2\\Delta\\theta)}\\]\n    \\[\\ddot{\\theta}_2 = \\frac{(m_1+m_2)(\\ell_1\\dot{\\theta}_1^2\\sin\\Delta\\theta - \n    g\\sin\\theta_2 + g\\sin\\theta_1\\cos\\Delta\\theta)}\n    {\\ell_2(m_1 + m_2\\sin^2\\Delta\\theta)}\\]\n    where \\(\\Delta\\theta = \\theta_1 - \\theta_2\\).\n\n                -<i>Created by Maximillian DeMarr</i>\n";
+    "79";
+    scene.caption = about_me;
+    "80";
+    MathJax.Hub.Queue(ρσ_list_decorate([ "Typeset", MathJax.Hub, scene.caption ]));
+    "93";
+    async function plot_handler() {
+        var time = ( 0 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[0];
+        var m1 = ( 1 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[1];
+        var m2 = ( 2 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[2];
+        var max_data_length = (arguments[3] === undefined || ( 3 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? plot_handler.__defaults__.max_data_length : arguments[3];
+        var ρσ_kwargs_obj = arguments[arguments.length["-"](1)];
+        if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+        if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "max_data_length")){
+            max_data_length = ρσ_kwargs_obj.max_data_length;
+        }
+        var ρσ_ls, pe, ke, total;
+        "118";
+        "119";
+        "122";
+        if (len(kinetic_gcurve.data)[">"](max_data_length) || time[">"](energy_graph.xmax)) {
+            "123";
+            energy_graph.xmax = time["+"](10);
+            "124";
+            energy_graph.xmin = time;
+            "125";
+            try {
+                "126";
+                potential_gcurve.data = ρσ_list_decorate([]);
+                "127";
+                kinetic_gcurve.data = ρσ_list_decorate([]);
+                "128";
+                total_energy_gcurve.data = ρσ_list_decorate([]);
+                "129";
+            } catch (ρσ_Exception) {
+                ρσ_last_exception = ρσ_Exception;
+                {
+                    "133";
+                    "134";
+                } 
+            }
+        } else if (len(phasor_gcurve.data)[">"](max_data_length)) {
+            "135";
+            phasor_gcurve.data = ρσ_list_decorate([]);
+        }
+        "137";
+        pe = await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, calculate_potential_energy, [m1, m2].concat([ρσ_desugar_kwargs({g: gravity})])));
+        "138";
+        ke = (await calculate_kinetic_energy(m1, m2));
+        "139";
+        total = pe["+"](ke);
+        "142";
+        potential_gcurve.plot(time, pe);
+        "143";
+        kinetic_gcurve.plot(time, ke);
+        "144";
+        total_energy_gcurve.plot(time, total);
+        "147";
+        phasor_gcurve.plot(m2.angle, m2.angular_velocity);
+    };
+    if (!plot_handler.__defaults__) Object.defineProperties(plot_handler, {
+        __defaults__ : {value: {max_data_length:1e4}},
+        __handles_kwarg_interpolation__ : {value: true},
+        __argnames__ : {value: ["time", "m1", "m2", "max_data_length"]},
+        __module__ : {value: null}
+    });
+
+    "150";
+    async function calculate_potential_energy() {
+        var m1 = ( 0 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[0];
+        var m2 = ( 1 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[1];
+        var g = (arguments[2] === undefined || ( 2 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? calculate_potential_energy.__defaults__.g : arguments[2];
+        var ρσ_kwargs_obj = arguments[arguments.length["-"](1)];
+        if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+        if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "g")){
+            g = ρσ_kwargs_obj.g;
+        }
+        var ρσ_ls, h1, h2;
+        "181";
+        h1 = m1.rod_length["*"](1["+"](sin(m1.angle)));
+        "182";
+        h2 = h1["+"](m2.rod_length["*"](1["+"](sin(m2.angle))));
+        "183";
+        return g["*"](m1.mass["*"](h1)["+"](m2.mass["*"](h2)));
+    };
+    if (!calculate_potential_energy.__defaults__) Object.defineProperties(calculate_potential_energy, {
+        __defaults__ : {value: {g:9.81}},
+        __handles_kwarg_interpolation__ : {value: true},
+        __argnames__ : {value: ["m1", "m2", "g"]},
+        __module__ : {value: null}
+    });
+
+    "186";
+    async function calculate_kinetic_energy(m1, m2) {
+        var ρσ_ls, term1, term2, term3, coupling;
+        "215";
+        term1 = m1.mass["*"](Math.pow((m1.rod_length["*"](m1.angular_velocity)), 2));
+        "216";
+        term2 = m2.mass["*"](Math.pow((m1.rod_length["*"](m1.angular_velocity)), 2));
+        "217";
+        term3 = m2.mass["*"](Math.pow((m2.rod_length["*"](m2.angular_velocity)), 2));
+        "218";
+        coupling = 2["*"](m2.mass)["*"](m1.rod_length)["*"](m2.rod_length)["*"](m1.angular_velocity)["*"](m2.angular_velocity)["*"](cos(m1.angle["-"](1["*"](m2.angle))));
+        "224";
+        return .5["*"](term1["+"](term2)["+"](term3)["+"](coupling));
+    };
+    if (!calculate_kinetic_energy.__argnames__) Object.defineProperties(calculate_kinetic_energy, {
+        __argnames__ : {value: ["m1", "m2"]},
+        __module__ : {value: null}
+    });
+
+    "235";
+    async function move_node(evt) {
+        var ρσ_ls, hit, parent, child;
+        "266";
+        "267";
+        mouse_1_up = false;
+        "268";
+        hit = scene.mouse.pick();
+        "270";
+        if (ρσ_instanceof(hit, sphere)) {
+            "271";
+            while (true) {
+                "272";
+                (await rate(60));
+                "273";
+                if (mouse_1_up) {
+                    "274";
+                    break;
+                }
+                "276";
+                parent = hit.node.parent;
+                "278";
+                hit.pos = parent.pos["+"](norm(ρσ_interpolate_kwargs.call(scene.mouse, scene.mouse.project, [ρσ_desugar_kwargs({normal: vec(0, 0, 1), point: vec(1, 0, 0)})])["-"](1["*"](parent.pos))));
+                "281";
+                hit.node.angular_velocity = 0;
+                "282";
+                hit.node.angular_acceleration = 0;
+                "285";
+                if (hit.pos.y["<"](hit.node.parent.pos.y)) {
+                    "287";
+                    hit.node.angle = 1["-u"]()["*"](diff_angle(hit.pos["-"](1["*"](parent.pos)), vec(1, 0, 0)));
+                    "288";
+                } else {
+                    "289";
+                    hit.node.angle = diff_angle(hit.pos["-"](1["*"](parent.pos)), vec(1, 0, 0));
+                }
+                "291";
+                (await hit.node.redraw());
+                "294";
+                child = hit.node.child;
+                "295";
+                if (child !== null) {
+                    "296";
+                    child.pos = hit.pos["+"](norm(child.pos["-"](1["*"](child.node.parent.pos))));
+                    "299";
+                    if (child.pos.y["<"](hit.pos.y)) {
+                        "300";
+                        child.node.angle = 1["-u"]()["*"](diff_angle(child.pos["-"](1["*"](hit.pos)), vec(1, 0, 0)));
+                        "301";
+                    } else {
+                        "302";
+                        child.node.angle = diff_angle(child.pos["-"](1["*"](hit.pos)), vec(1, 0, 0));
+                        "305";
+                    }
+                    if (paused) {
+                        "306";
+                        child.node.angular_velocity = 0;
+                        "307";
+                        child.node.angular_acceleration = 0;
+                    }
+                    "309";
+                    (await child.node.redraw());
+                }
+            }
+        }
+    };
+    if (!move_node.__argnames__) Object.defineProperties(move_node, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "312";
+    async function release_mouse_1(evt) {
+        "325";
+        "326";
+        mouse_1_up = true;
+    };
+    if (!release_mouse_1.__argnames__) Object.defineProperties(release_mouse_1, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "329";
+    async function simulation_pause_run(evt) {
+        "346";
+        "347";
+        paused = !paused;
+        "348";
+        if (paused) {
+            "349";
+            evt.text = "Paused";
+            "350";
+            evt.textcolor = color.red;
+            "351";
+        } else {
+            "352";
+            evt.text = "Running";
+            "353";
+            evt.textcolor = color.black;
+        }
+    };
+    if (!simulation_pause_run.__argnames__) Object.defineProperties(simulation_pause_run, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "356";
+    async function simulation_speed(evt) {
+        "375";
+        "376";
+        if ((evt.obj_type === "slider" || typeof evt.obj_type === "object" && ρσ_equals(evt.obj_type, "slider"))) {
+            "377";
+            evt.value_winput_obj.text = evt.value;
+            "378";
+            time_step = float(accuracy_menu.selected)["*"](evt.value);
+            "379";
+        } else if ((evt.obj_type === "winput" || typeof evt.obj_type === "object" && ρσ_equals(evt.obj_type, "winput"))) {
+            "380";
+            time_step = float(accuracy_menu.selected)["*"](float(evt.text));
+        }
+    };
+    if (!simulation_speed.__argnames__) Object.defineProperties(simulation_speed, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "384";
+    async function simulation_accuracy(evt) {
+        var ρσ_ls, node;
+        "407";
+        "408";
+        time_step = float(evt.selected);
+        "409";
+        update_rate = abs(int(1["/"](time_step)));
+        "410";
+        graphing_period = int(update_rate["/"](40));
+        "412";
+        node = null_node;
+        "413";
+        while (node.child !== null) {
+            "414";
+            node = node.child.node;
+        }
+        "415";
+        node.obj.interval = int(update_rate["/"](200));
+    };
+    if (!simulation_accuracy.__argnames__) Object.defineProperties(simulation_accuracy, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "418";
+    async function simulation_dampening(evt) {
+        var ρσ_ls, value;
+        "438";
+        "439";
+        if ((evt.obj_type === "slider" || typeof evt.obj_type === "object" && ρσ_equals(evt.obj_type, "slider"))) {
+            "440";
+            evt.value_winput_obj.text = 1["-u"]()["*"](evt.value);
+            "441";
+            damping_coefficient = 1["-u"]()["*"](evt.value);
+            "442";
+        } else if ((evt.obj_type === "winput" || typeof evt.obj_type === "object" && ρσ_equals(evt.obj_type, "winput"))) {
+            "443";
+            value = float(evt.text);
+            "444";
+            if (value["<="](0)) {
+                "445";
+                damping_coefficient = value;
+                "446";
+            } else {
+                "447";
+                evt.text = 1["-u"]()["*"](value);
+                "448";
+                damping_coefficient = 1["-u"]()["*"](value);
+            }
+        }
+    };
+    if (!simulation_dampening.__argnames__) Object.defineProperties(simulation_dampening, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "451";
+    async function about_me_toggle(evt) {
+        "475";
+        "476";
+        if (caption_enabled) {
+            "477";
+            caption_enabled = !caption_enabled;
+            "478";
+            about_me_button.text = "Explain me!";
+            "479";
+            scene.width = (graphs_enabled) ? 600 : 1300;
+            "480";
+            scene.caption = "";
+            "481";
+        } else {
+            "482";
+            if (graphs_enabled) {
+                "483";
+                await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, canvas_graphs_toggle, [ρσ_desugar_kwargs({evt: null})]));
+            }
+            "484";
+            caption_enabled = !caption_enabled;
+            "485";
+            about_me_button.text = "Hide words ";
+            "486";
+            scene.width = 600;
+            "487";
+            scene.caption = about_me;
+            "488";
+            MathJax.Hub.Queue(ρσ_list_decorate([ "Typeset", MathJax.Hub, scene.caption ]));
+        }
+    };
+    if (!about_me_toggle.__argnames__) Object.defineProperties(about_me_toggle, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "491";
+    async function canvas_graphs_toggle(evt) {
+        "528";
+        "529";
+        "530";
+        graphs_enabled = !graphs_enabled;
+        "532";
+        if (graphs_enabled) {
+            "533";
+            if (caption_enabled) {
+                "534";
+                (await about_me_toggle(evt));
+            }
+            "536";
+            graphing_button.text = "Hide graphs";
+            "537";
+            scene.width = 600;
+            "540";
+            energy_graph = ρσ_interpolate_kwargs.call(this, graph, [ρσ_desugar_kwargs({align: "right", width: 750, height: 280, title: "<b>Total Energy vs Time:</b>", xtitle: "Time (s)", ytitle: "Energy (J)", scroll: false, fast: fast_plots, xmax: 10, background: color.gray(.95)})]);
+            "548";
+            potential_gcurve = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({color: color.blue, label: "Potential", width: 1})]);
+            "549";
+            kinetic_gcurve = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({color: color.red, label: "Kinetic", width: 1})]);
+            "550";
+            total_energy_gcurve = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({color: color.green, label: "Total", width: 1})]);
+            "553";
+            phase_plane_graph = ρσ_interpolate_kwargs.call(this, graph, [ρσ_desugar_kwargs({align: "right", width: 750, height: 280, title: "<b>Phase plane:</b>", xtitle: "Theta 2 (rad)", ytitle: "Angular Velocity 2 (rad/s)", scroll: false, fast: fast_plots, background: color.black})]);
+            "560";
+            phasor_gcurve = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({color: vec(1, .7, .4), width: 1})]);
+            "562";
+        } else {
+            "563";
+            graphing_button.text = "Show graphs";
+            "564";
+            energy_graph.remove();
+            "565";
+            phase_plane_graph.remove();
+            "566";
+            potential_gcurve.data = ρσ_list_decorate([]);
+            "567";
+            kinetic_gcurve.data = ρσ_list_decorate([]);
+            "568";
+            total_energy_gcurve.data = ρσ_list_decorate([]);
+            "569";
+            phasor_gcurve.data = ρσ_list_decorate([]);
+        }
+    };
+    if (!canvas_graphs_toggle.__argnames__) Object.defineProperties(canvas_graphs_toggle, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "572";
+    async function fast_plotting_toggle(evt) {
+        "573";
+        "574";
+        fast_plots = !fast_plots;
+        "575";
+        if (fast_plots) {
+            "576";
+            evt.text = "Fast plots ";
+            "577";
+            evt.textcolor = color.black;
+            "578";
+        } else {
+            "579";
+            evt.text = "High detail";
+            "580";
+            evt.textcolor = color.red;
+        }
+    };
+    if (!fast_plotting_toggle.__argnames__) Object.defineProperties(fast_plotting_toggle, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "583";
+    async function change_gravity(evt) {
+        var ρσ_ls, g;
+        "584";
+        "585";
+        g = 9.81;
+        "586";
+        if ((evt.obj_type === "slider" || typeof evt.obj_type === "object" && ρσ_equals(evt.obj_type, "slider"))) {
+            "587";
+            gravity = g["*"](evt.value);
+            "588";
+            evt.value_winput_obj.text = evt.value;
+            "589";
+        } else if ((evt.obj_type === "winput" || typeof evt.obj_type === "object" && ρσ_equals(evt.obj_type, "winput"))) {
+            "590";
+            gravity = g["*"](evt.text);
+        }
+    };
+    if (!change_gravity.__argnames__) Object.defineProperties(change_gravity, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "593";
+    async function change_rod_length(evt) {
+        "594";
+        if ((evt.obj_type === "slider" || typeof evt.obj_type === "object" && ρσ_equals(evt.obj_type, "slider"))) {
+            "595";
+            evt.respective_node.rod_length = evt.value;
+            "596";
+            evt.value_winput_obj.text = evt.value;
+            "597";
+        } else if ((evt.obj_type === "winput" || typeof evt.obj_type === "object" && ρσ_equals(evt.obj_type, "winput"))) {
+            "598";
+            evt.respective_node.rod_length = float(evt.text);
+        }
+        "599";
+        (await evt.respective_node.redraw());
+    };
+    if (!change_rod_length.__argnames__) Object.defineProperties(change_rod_length, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "602";
+    async function change_mass(evt) {
+        "603";
+        if ((evt.obj_type === "slider" || typeof evt.obj_type === "object" && ρσ_equals(evt.obj_type, "slider"))) {
+            "604";
+            evt.respective_node.mass = evt.value;
+            "605";
+            evt.value_winput_obj.text = evt.value;
+            "606";
+        } else if ((evt.obj_type === "winput" || typeof evt.obj_type === "object" && ρσ_equals(evt.obj_type, "winput"))) {
+            "607";
+            evt.respective_node.mass = float(evt.text);
+        }
+        "608";
+        (await evt.respective_node.redraw());
+    };
+    if (!change_mass.__argnames__) Object.defineProperties(change_mass, {
+        __argnames__ : {value: ["evt"]},
+        __module__ : {value: null}
+    });
+
+    "622";
+    function Node() {;
+    }
+    Node.prototype.__init__ = async function __init__() {
+        var self = this;
+        var position = (arguments[0] === undefined || ( 0 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? __init__.__defaults__.position : arguments[0];
+        var kwargs = (arguments[1] === undefined || ( 1 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? __init__.__defaults__.kwargs : arguments[1];
+        var ρσ_kwargs_obj = arguments[arguments.length["-"](1)];
+        if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+        if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "position")){
+            position = ρσ_kwargs_obj.position;
+        }
+        if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "kwargs")){
+            kwargs = ρσ_kwargs_obj.kwargs;
+        }
+        var ρσ_ls, ρσ_unpack, key, val;
+        "675";
+        self.obj = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: position, make_trail: false, node: self})]);
+        "682";
+        var ρσ_Iter1 = kwargs.items();
+        ρσ_Iter1 = ((typeof ρσ_Iter1[Symbol.iterator] === "function") ? (ρσ_Iter1 instanceof Map ? ρσ_Iter1.keys() : ρσ_Iter1) : Object.keys(ρσ_Iter1));
+        for (var ρσ_Index1 of ρσ_Iter1) {
+            ρσ_unpack = ρσ_Index1;
+            key = ρσ_unpack[0];
+            val = ρσ_unpack[1];
+            "683";
+            ρσ_setitem(self.obj, key, val);
+        }
+        "686";
+        self.angle = diff_angle(vec(1, 0, 0), position);
+        "687";
+        self.angular_velocity = 0;
+        "688";
+        self.angular_acceleration = 0;
+        "689";
+        self.mass = 10;
+        "690";
+        self.rod_length = 0;
+        "693";
+        self.edge_obj = null;
+        "694";
+        self.parent = null;
+        "695";
+        self.child = null;
+    };
+    if (!Node.prototype.__init__.__defaults__) Object.defineProperties(Node.prototype.__init__, {
+        __defaults__ : {value: {position:vec(0, 0, 0), kwargs:ρσ_dict()}},
+        __handles_kwarg_interpolation__ : {value: true},
+        __argnames__ : {value: ["position", "kwargs"]},
+        __module__ : {value: null}
+    });
+    Node.__argnames__ = Node.prototype.__init__.__argnames__;
+    Node.__handles_kwarg_interpolation__ = Node.prototype.__init__.__handles_kwarg_interpolation__;
+    Node.prototype.link = async function link() {
+        var self = this;
+        var other = ( 0 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[0];
+        var kwargs = (arguments[1] === undefined || ( 1 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? link.__defaults__.kwargs : arguments[1];
+        var ρσ_kwargs_obj = arguments[arguments.length["-"](1)];
+        if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+        if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "kwargs")){
+            kwargs = ρσ_kwargs_obj.kwargs;
+        }
+        var ρσ_ls, ρσ_unpack, key, val;
+        "706";
+        self.edge_obj = ρσ_interpolate_kwargs.call(this, cylinder, [ρσ_desugar_kwargs({pos: self.obj.pos, axis: other.obj.pos["-"](1["*"](self.obj.pos)), radius: self.obj.radius["/"](10)})]);
+        "713";
+        var ρσ_Iter2 = kwargs.items();
+        ρσ_Iter2 = ((typeof ρσ_Iter2[Symbol.iterator] === "function") ? (ρσ_Iter2 instanceof Map ? ρσ_Iter2.keys() : ρσ_Iter2) : Object.keys(ρσ_Iter2));
+        for (var ρσ_Index2 of ρσ_Iter2) {
+            ρσ_unpack = ρσ_Index2;
+            key = ρσ_unpack[0];
+            val = ρσ_unpack[1];
+            "714";
+            ρσ_setitem(self.edge_obj, key, val);
+        }
+        "717";
+        self.child = other.obj;
+        "718";
+        other.parent = self.obj;
+        "719";
+        other.rod_length = mag(self.obj.pos["-"](1["*"](other.obj.pos)));
+    };
+    if (!Node.prototype.link.__defaults__) Object.defineProperties(Node.prototype.link, {
+        __defaults__ : {value: {kwargs:ρσ_dict()}},
+        __handles_kwarg_interpolation__ : {value: true},
+        __argnames__ : {value: ["other", "kwargs"]},
+        __module__ : {value: null}
+    });
+    Node.prototype.euler_forward_step = async function euler_forward_step(dt) {
+        var self = this;
+        "733";
+        self.angular_velocity=self.angular_velocity["+"](self.angular_acceleration["*"](dt));
+        "734";
+        self.angle=self.angle["+"](self.angular_velocity["*"](dt));
+        "737";
+        if (self.child) {
+            "738";
+            (await self.child.node.euler_forward_step(dt));
+        }
+        "740";
+        (await self.redraw());
+    };
+    if (!Node.prototype.euler_forward_step.__argnames__) Object.defineProperties(Node.prototype.euler_forward_step, {
+        __argnames__ : {value: ["dt"]},
+        __module__ : {value: null}
+    });
+    Node.prototype.redraw = async function redraw() {
+        var self = this;
+        "750";
+        if (self.parent) {
+            "752";
+            self.obj.pos = self.parent.pos["+"](self.rod_length["*"](vec(cos(self.angle), sin(self.angle), 0)));
+            "755";
+            self.parent.node.edge_obj.pos = self.parent.pos;
+            "756";
+            self.parent.node.edge_obj.axis = self.obj.pos["-"](1["*"](self.parent.pos));
+            "759";
+        }
+        if (self.child) {
+            "760";
+            self.edge_obj.pos = self.obj.pos;
+            "761";
+            self.edge_obj.axis = self.child.pos["-"](1["*"](self.obj.pos));
+        }
+    };
+    if (!Node.prototype.redraw.__module__) Object.defineProperties(Node.prototype.redraw, {
+        __module__ : {value: null}
+    });
+    Node.prototype.load_sliders = async function load_sliders() {
+        var self = this;
+        var name_field = (arguments[0] === undefined || ( 0 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? load_sliders.__defaults__.name_field : arguments[0];
+        var ρσ_kwargs_obj = arguments[arguments.length["-"](1)];
+        if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+        if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "name_field")){
+            name_field = ρσ_kwargs_obj.name_field;
+        }
+        "781";
+        self.rod_length_slider = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({min: .1, max: 10, value: self.rod_length, step: .1, length: 180, pos: scene.title_anchor, bind: change_rod_length, respective_node: self, title_wtext_obj: ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "\n<b>"["+"](ρσ_str.format("{}", name_field))["+"](" -- Length:</b>"), pos: scene.title_anchor})]), value_winput_obj: null, suffix_wtext_obj: null, obj_type: "slider"})]);
+        (await sleep(.1));
+        "793";
+        self.rod_length_slider.value_winput_obj = ρσ_interpolate_kwargs.call(this, winput, [ρσ_desugar_kwargs({type: "numeric", width: 30, height: 20, respective_node: self, text: self.rod_length_slider.value, pos: scene.title_anchor, bind: change_rod_length, obj_type: "winput"})]);
+        "802";
+        self.rod_length_slider.suffix_wtext_obj = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "m", pos: scene.title_anchor})]);
+        "808";
+        self.mass_slider = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({min: .01, max: 10, value: self.mass, length: 180, pos: scene.title_anchor, bind: change_mass, respective_node: self, title_wtext_obj: ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "<b>   Mass:</b>", pos: scene.title_anchor})]), value_winput_obj: null, suffix_wtext_obj: null, obj_type: "slider"})]);
+        (await sleep(.1));
+        "820";
+        self.mass_slider.value_winput_obj = ρσ_interpolate_kwargs.call(this, winput, [ρσ_desugar_kwargs({type: "numeric", width: 30, height: 20, respective_node: self, text: self.mass_slider.value, pos: scene.title_anchor, bind: change_mass, obj_type: "winput"})]);
+        "829";
+        self.mass_slider.suffix_wtext_obj = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "kg", pos: scene.title_anchor})]);
+    };
+    if (!Node.prototype.load_sliders.__defaults__) Object.defineProperties(Node.prototype.load_sliders, {
+        __defaults__ : {value: {name_field:"Rod"}},
+        __handles_kwarg_interpolation__ : {value: true},
+        __argnames__ : {value: ["name_field"]},
+        __module__ : {value: null}
+    });
+    Node.prototype.__repr__ = async function __repr__() {
+                return "<"["+"](__name__)["+"](".")["+"](this.constructor.name)["+"](" #")["+"](this.ρσ_object_id)["+"](">");
+    };
+    Node.prototype.__str__ = async function __str__() {
+        return this.__repr__();
+    };
+    Object.defineProperty(Node.prototype, "__bases__", {value: []});
+    
+    
+    
+    
+    
+
+    "844";
+    default_radius = .1;
+    "845";
+    damping_coefficient = 0;
+    "846";
+    gravity = 9.81;
+    "849";
+    time_step = 1e-5;
+    "850";
+    time = 0;
+    "851";
+    update_rate = 1["/"](time_step);
+    "854";
+    mouse_1_up = true;
+    "855";
+    paused = false;
+    "856";
+    engine_running = true;
+    "857";
+    caption_enabled = true;
+    "858";
+    graphs_enabled = false;
+    "859";
+    fast_plots = true;
+    "860";
+    advanced_editing = false;
+    "863";
+    _GS_1 = new Node;
+    ρσ_interpolate_kwargs.call(_GS_1, _GS_1.__init__, [ρσ_desugar_kwargs({position: vec(0, 0, 0), kwargs: (function(){
+        var ρσ_d = ρσ_dict();
+        ρσ_d.set("radius", default_radius);
+        ρσ_d.set("visible", false);
+        return ρσ_d;
+    }).call(this)})]);
+    null_node = _GS_1;
+    "901";
+    speed_slider = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({min: 1["-u"]()["*"](1), max: 1, value: 1, length: 300, step: .1, pos: scene.title_anchor, bind: simulation_speed, title_wtext_obj: ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "<b>Simulation speed:</b>", pos: scene.title_anchor})]), value_winput_obj: null, suffix_wtext_obj: null, obj_type: "slider"})]);
+    (await sleep(.1));
+    "911";
+    speed_slider.value_winput_obj = ρσ_interpolate_kwargs.call(this, winput, [ρσ_desugar_kwargs({type: "numeric", width: 30, height: 20, text: speed_slider.value, pos: scene.title_anchor, bind: simulation_speed, obj_type: "winput"})]);
+    "918";
+    speed_slider.suffix_wtext_obj = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "x", pos: scene.title_anchor})]);
+    "924";
+    dampener_slider = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({min: 0, max: 1, step: .01, value: damping_coefficient, length: 180, pos: scene.title_anchor, bind: simulation_dampening, title_wtext_obj: ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "<b>   Damping coefficient (b):</b>", pos: scene.title_anchor})]), value_winput_obj: null, suffix_wtext_obj: null, obj_type: "slider"})]);
+    (await sleep(.1));
+    "934";
+    dampener_slider.value_winput_obj = ρσ_interpolate_kwargs.call(this, winput, [ρσ_desugar_kwargs({type: "numeric", width: 30, height: 20, text: dampener_slider.value, pos: scene.title_anchor, bind: simulation_dampening, obj_type: "winput"})]);
+    "943";
+    accuracy_menu = ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: ρσ_list_decorate([ "1e-2", "1e-3", "1e-4", "1e-5", "1e-6", "1e-7" ]), index: 3, pos: scene.title_anchor, bind: simulation_accuracy, menu_title: ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "<b>\nSimulation step:</b> ", pos: scene.title_anchor})])})]);
+    "955";
+    run_pause_button = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({text: "Running", pos: scene.title_anchor, bind: simulation_pause_run, button_title: ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "  ", pos: scene.title_anchor})])})]);
+    "964";
+    about_me_button = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({text: "Hide words ", pos: scene.title_anchor, bind: about_me_toggle, button_title: ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "  ", pos: scene.title_anchor})])})]);
+    "973";
+    graphing_button = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({text: "Show graphs", pos: scene.title_anchor, bind: canvas_graphs_toggle, button_title: ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "  ", pos: scene.title_anchor})])})]);
+    "982";
+    fast_plots_button = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({text: "Fast plots", pos: scene.title_anchor, bind: fast_plotting_toggle, button_title: ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "  ", pos: scene.title_anchor})])})]);
+    "993";
+    gravity_slider = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({min: 1["-u"]()["*"](10), max: 10, value: gravity["/"](9.81), step: .1, length: 209, pos: scene.title_anchor, bind: change_gravity, title_wtext_obj: ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "  <b>Gravity:</b>", pos: scene.title_anchor})]), value_winput_obj: null, suffix_wtext_obj: null, obj_type: "slider"})]);
+    (await sleep(.1));
+    "1003";
+    gravity_slider.value_winput_obj = ρσ_interpolate_kwargs.call(this, winput, [ρσ_desugar_kwargs({type: "numeric", width: 30, height: 20, text: gravity_slider.value, pos: scene.title_anchor, bind: change_gravity, obj_type: "winput"})]);
+    "1010";
+    gravity_slider.suffix_wtext_obj = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "G", pos: scene.title_anchor})]);
+    "1024";
+    async function main() {
+        var ρσ_ls, kwargs_1, _GS_1, mass_1, kwargs_2, mass_2, iteration;
+        "1066";
+        "1067";
+        "1072";
+        kwargs_1 = (function(){
+            var ρσ_d = ρσ_dict();
+            ρσ_d.set("radius", default_radius);
+            ρσ_d.set("color", color.cyan);
+            return ρσ_d;
+        }).call(this);
+        "1076";
+        _GS_1 = new Node;
+        ρσ_interpolate_kwargs.call(_GS_1, _GS_1.__init__, [ρσ_desugar_kwargs({position: vec(1, 0, 0), kwargs: kwargs_1})]);
+        mass_1 = _GS_1;
+        "1078";
+        kwargs_2 = (function(){
+            var ρσ_d = ρσ_dict();
+            ρσ_d.set("radius", default_radius);
+            ρσ_d.set("color", vec(1, .7, .2));
+            ρσ_d.set("make_trail", true);
+            ρσ_d.set("trail_radius", default_radius["/"](20));
+            ρσ_d.set("retain", 1e3);
+            ρσ_d.set("interval", 500);
+            return ρσ_d;
+        }).call(this);
+        "1086";
+        _GS_1 = new Node;
+        ρσ_interpolate_kwargs.call(_GS_1, _GS_1.__init__, [ρσ_desugar_kwargs({position: vec(2, 0, 0), kwargs: kwargs_2})]);
+        mass_2 = _GS_1;
+        "1089";
+        ρσ_interpolate_kwargs.call(null_node, null_node.link, [mass_1].concat([ρσ_desugar_kwargs({kwargs: (function(){
+            var ρσ_d = ρσ_dict();
+            ρσ_d.set("color", color.blue);
+            return ρσ_d;
+        }).call(this)})]));
+        "1090";
+        ρσ_interpolate_kwargs.call(mass_1, mass_1.link, [mass_2].concat([ρσ_desugar_kwargs({kwargs: (function(){
+            var ρσ_d = ρσ_dict();
+            ρσ_d.set("color", color.red);
+            return ρσ_d;
+        }).call(this)})]));
+        "1092";
+        ρσ_interpolate_kwargs.call(mass_1, mass_1.load_sliders, [ρσ_desugar_kwargs({name_field: "Rod 1"})]);
+        "1093";
+        (await sleep(1));
+        "1094";
+        ρσ_interpolate_kwargs.call(mass_2, mass_2.load_sliders, [ρσ_desugar_kwargs({name_field: "Rod 2"})]);
+        "1097";
+        iteration = 0;
+        "1098";
+        graphing_period = int(update_rate["/"](40));
+        "1101";
+        while (engine_running) {
+            "1102";
+            (await rate(update_rate));
+            "1104";
+            if (paused) {
+                "1105";
+                continue;
+            }
+            "1108";
+            mass_1.angular_acceleration = 1["-u"]()["*"](gravity)["*"](mass_1.mass)["*"](cos(mass_1.angle))["+"](gravity["*"](mass_2.mass)["*"](cos(mass_1.angle["-"](1["*"](2)["*"](mass_2.angle))))["/"](2))["-"](1["*"](gravity)["*"](mass_2.mass)["*"](cos(mass_1.angle))["/"](2))["-"](1["*"](mass_1.rod_length)["*"](mass_2.mass)["*"](sin(2["*"](mass_1.angle)["-"](1["*"](2)["*"](mass_2.angle))))["*"](Math.pow(mass_1.angular_velocity, 2))["/"](2))["-"](1["*"](mass_2.mass)["*"](mass_2.rod_length)["*"](sin(mass_1.angle["-"](1["*"](mass_2.angle))))["*"](Math.pow(mass_2.angular_velocity, 2)))["/"](mass_1.rod_length["*"](mass_1.mass["-"](1["*"](mass_2.mass)["*"](Math.pow(cos(mass_1.angle["-"](1["*"](mass_2.angle))), 2)))["+"](mass_2.mass)))["+"](damping_coefficient["*"](mass_1.angular_velocity)["*"](mass_1.rod_length));
+            "1120";
+            mass_2.angular_acceleration = gravity["*"](mass_1.mass)["*"](cos(2["*"](mass_1.angle)["-"](1["*"](mass_2.angle))))["/"](2)["-"](1["*"](gravity)["*"](mass_1.mass)["*"](cos(mass_2.angle))["/"](2))["+"](gravity["*"](mass_2.mass)["*"](cos(2["*"](mass_1.angle)["-"](1["*"](mass_2.angle))))["/"](2))["-"](1["*"](gravity)["*"](mass_2.mass)["*"](cos(mass_2.angle))["/"](2))["+"](mass_1.mass["*"](mass_1.rod_length)["*"](sin(mass_1.angle["-"](1["*"](mass_2.angle))))["*"](Math.pow(mass_1.angular_velocity, 2)))["+"](mass_1.rod_length["*"](mass_2.mass)["*"](sin(mass_1.angle["-"](1["*"](mass_2.angle))))["*"](Math.pow(mass_1.angular_velocity, 2)))["+"](mass_2.mass["*"](mass_2.rod_length)["*"](sin(2["*"](mass_1.angle)["-"](1["*"](2)["*"](mass_2.angle))))["*"](Math.pow(mass_2.angular_velocity, 2))["/"](2))["/"](mass_2.rod_length["*"](mass_1.mass["-"](1["*"](mass_2.mass)["*"](Math.pow(cos(mass_1.angle["-"](1["*"](mass_2.angle))), 2)))["+"](mass_2.mass)))["+"](damping_coefficient["*"](mass_2.angular_velocity)["*"](mass_2.rod_length));
+            "1135";
+            (await mass_1.euler_forward_step(time_step));
+            "1136";
+            time=time["+"](time_step);
+            "1137";
+            iteration=iteration["+"](1);
+            "1140";
+            if (graphs_enabled && !((iteration["%"](graphing_period)))) {
+                "1141";
+                (await plot_handler(time, mass_1, mass_2));
+            }
+        }
+    };
+    if (!main.__module__) Object.defineProperties(main, {
+        __module__ : {value: null}
+    });
+
+    "1145";
+    (await main());
+};
+if (!__main__.__module__) Object.defineProperties(__main__, {
+    __module__ : {value: null}
+});
+
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+// END JAVASCRIPT
+
+//--><!]]></script>
+</div>
